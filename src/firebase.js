@@ -13,7 +13,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyDd213dylJJoiaGDxrsxizZeULELXqA58s",
   authDomain: "cv-app-73913.firebaseapp.com",
   projectId: "cv-app-73913",
-  storageBucket: "cv-app-73913.firebasestorage.app",
+  storageBucket: "cv-app-73913.appspot.com",
   messagingSenderId: "1063583855261",
   appId: "1:1063583855261:web:adecd54da2f9ddfb999a74",
   measurementId: "G-RT7DD83XK0"

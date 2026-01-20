@@ -1,25 +1,12 @@
-import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "./firebase";
+import About from "./components/about.jsx";
 
 function App() {
-  const [about, setAbout] = useState("");
-
-  useEffect(() => {
-    async function fetchAbout() {
-      const querySnapshot = await getDocs(collection(db, "about"));
-      querySnapshot.forEach((doc) => {
-        setAbout(doc.data().text);
-      });
-    }
-    fetchAbout();
-  }, []);
-
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold">Tentang Saya</h1>
-      <p>{about}</p>
-    </div>
+    <main className="bg-black text-white min-h-screen p-6">
+
+      <About />
+   
+    </main>
   );
 }
 
