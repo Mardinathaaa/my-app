@@ -17,7 +17,14 @@
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
 
+body {
+  overflow: hidden;
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
