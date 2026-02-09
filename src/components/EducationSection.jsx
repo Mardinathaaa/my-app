@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function EducationSection() {
   const [education, setEducation] = useState([]);
@@ -17,6 +18,8 @@ export default function EducationSection() {
           ...doc.data(),
         }));
         setEducation(data);
+        console.log("EDUCATION DATA:", data);
+
       } catch (err) {
         console.error("Error fetch education:", err);
       } finally {
@@ -48,9 +51,13 @@ export default function EducationSection() {
   return (
     <div className="w-full h-full flex items-center justify-center px-6">
       <div className="max-w-5xl w-full grid md:grid-cols-2 gap-12 items-center">
-        {/* Left Content */}
+
+        {/* LEFT CONTENT */}
         <div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Education</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Education
+          </h2>
+
           <p className="text-gray-400 leading-relaxed mb-8">
             Latar belakang pendidikan yang membentuk dasar kuat dalam logika,
             pemrograman, dan pengembangan aplikasi modern.
@@ -65,12 +72,12 @@ export default function EducationSection() {
                 <div
                   key={edu.id}
                   className={`min-w-[260px] md:min-w-[300px]
-                  border rounded-2xl p-6 transition
-                  ${
-                    i === active
-                      ? "border-white/40 bg-white/5"
-                      : "border-white/20"
-                  }`}
+                    border rounded-2xl p-6 transition-all duration-300
+                    ${
+                      i === active
+                        ? "border-white/40 bg-white/5"
+                        : "border-white/20 opacity-70"
+                    }`}
                 >
                   <p className="text-sm text-gray-400 mb-1">
                     {edu.tahunmasuk} – {edu.tahunkeluar}
@@ -85,7 +92,9 @@ export default function EducationSection() {
                     {edu.name}
                   </a>
 
-                  <p className="text-gray-300 mb-3">{edu.program}</p>
+                  <p className="text-gray-300 mb-3">
+                    {edu.program}
+                  </p>
 
                   {edu.ipk && (
                     <span className="inline-block px-3 py-1 text-sm border border-white/20 rounded-full text-gray-300">
@@ -96,7 +105,7 @@ export default function EducationSection() {
               ))}
             </div>
 
-            {/* Navigation Buttons – hanya muncul jika > 1 */}
+            {/* NAVIGATION */}
             {education.length > 1 && (
               <div className="absolute -bottom-12 left-0 flex items-center gap-4">
                 <button
@@ -133,14 +142,22 @@ export default function EducationSection() {
           </div>
         </div>
 
-        {/* Right Visual */}
-        <div className="hidden md:flex justify-center">
-          <img
-            src={education[active]?.imageUrlSchool}
-            alt="Campus"
-            className="w-72 h-80 object-cover rounded-2xl"
-          />
+        {/* RIGHT VISUAL (ANIMATED IMAGE) */}
+        <div className="hidden md:flex justify-center relative w-full h-[320px]">
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={education[active]?.imageUrlSchool}
+              src={education[active]?.imageUrlSchool}
+              alt={education[active]?.name}
+              className="absolute w-72 h-80 object-cover rounded-2xl shadow-xl"
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            />
+          </AnimatePresence>
         </div>
+
       </div>
     </div>
   );

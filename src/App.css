@@ -47,3 +47,18 @@ body {
 .read-the-docs {
   color: #888;
 }
+@keyframes skill-wave {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.animate-skill-wave {
+  animation: skill-wave 1.8s ease-in-out infinite;
+}
